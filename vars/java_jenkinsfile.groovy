@@ -16,21 +16,23 @@ def call(){
             if(fileExists(specsDir + "/commonspecs.yml")){
              commonspecs_template = readYaml file : specsDir + "/commonspecs.yml"
              specs = specs + commonspecs_template
+             config = readYaml text: specsDir + "/stagingcommands.yml"
              println "reading specs file" + specs
             }
+          }
         }
         catch(Exception e) {
              println "Error in reading specs file : " + e.getMessage()
         throw e
             }
       }
-    }       
+    }    
     stage('Build'){
-      ciFunc.build(specs)
+      ciFunc.build(specs, config)
       }
       if (specs.unitTest.isUnittestRequired && specs.containsKey("unitTest")){
       stage('UnitTest'){
-        ciFunc.unittest(specs)
+        ciFunc.unittest(specs, config)
       }
    }
       else {
@@ -38,7 +40,7 @@ def call(){
       }
     if (specs.codeCoverage.isCodecoverageRequired && specs.containsKey("codeCoverage")){  
     stage('CodeCoverage'){
-      ciFunc.codecoverage(specs)
+      ciFunc.codecoverage(specs, config)
       }
     } 
     else {
@@ -47,7 +49,7 @@ def call(){
       
     if (specs.codeQuality.isCodeQualityRequired && specs.containsKey("codeQuality")){  
     stage('CodeQuality'){
-      ciFunc.codequality(specs)
+      ciFunc.codequality(specs, config)
       }
     } 
     else {
@@ -55,11 +57,11 @@ def call(){
       }
       
     stage('upload artifact') {
-      ciFunc.artifactupload(specs)
+      ciFunc.artifactupload(specs, config)
       }
     if (specs.dockerBuild.isDockerBuildRequired && specs.containsKey("dockerBuild")){  
     stage('DockerBuild'){
-      ciFunc.dockerbuild(specs)
+      ciFunc.dockerbuild(specs, config)
       }
     } 
     else {
@@ -67,7 +69,7 @@ def call(){
       }
     if (specs.dockerDeploy.isDockerDeployRequired && specs.containsKey("dockerDeploy")){  
     stage('DockerDeploy'){
-      cdFunc.dockerDeploy(specs)
+      cdFunc.dockerDeploy(specs, config)
       }
     } 
     else {
