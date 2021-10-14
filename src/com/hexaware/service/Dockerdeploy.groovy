@@ -11,7 +11,7 @@ Map config
   }
   def dockerdeployFunc(Map specs, Map config){
      
-      mainScript.sh """ docker run -d -p 8085:8085 --name petclinic apurbaa10.jfrog.io/default-docker-local/petclinic:V1 """
+      mainScript.sh """ docker run -d -p 8085:8085 --name petclinic jenkinstestpipe.jfrog.io/ui/native/default-docker-local/petclinic:V1 """
     
   }
 }
