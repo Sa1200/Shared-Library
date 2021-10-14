@@ -1,7 +1,11 @@
-def checkoutVarFunc(Map specs) {
-  println "Printing specs" + specs
-  docheckout = new com.hexaware.service.Codecheckout(this, specs)
-  docheckout.checkOutFunc(specs)  
+def checkoutVarFunc(Map specs, Script mainScript) {
+    def checkOutFunc(this, specs){
+    mainScript.checkout([$class: 'GitSCM',
+    branches: [[name: specs.branch]],
+    extensions: [],
+    userRemoteConfigs: [[url: specs.repo ]]
+    ])
+  }
 }
 def build(Map specs, Map config) {
   dobuild = new com.hexaware.service.Build(this, specs, config)
