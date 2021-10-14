@@ -13,17 +13,16 @@ def call(){
           println "reading the specs from Specs repository"
           def specsDir = "./specs/$Version"
           println "specs version" + specsDir
-            if(fileExists(specsDir + "/commonspecs.yml")){
+            if(fileExists(specsDir + "/commonspecs.yaml")){
              commonspecs_template = readYaml file : specsDir + "/commonspecs.yaml"
              specs = specs + commonspecs_template
         
              println "reading specs file" + specs
 
-      
-            config_template = readYaml file : specsDir + "/commonspecs.yaml"
-            config = config_template
-
             }
+          
+          config_template = readYaml file : specsDir + "/stagingcommands.yaml"
+          config = config_template
         }
         catch(Exception e) {
              println "Error in reading specs file : " + e.getMessage()
