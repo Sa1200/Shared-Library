@@ -18,6 +18,11 @@ def call(){
              specs = specs + commonspecs_template
              config = readYaml text: specsDir + "/stagingcommands.yml"
              println "reading specs file" + specs
+
+            def specsDir = "./specs/$Version"
+            config_template = readYaml file : specsDir + "/commonspecs.yml"
+            config = config_template
+
             }
         }
         catch(Exception e) {
