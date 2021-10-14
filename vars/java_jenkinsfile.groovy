@@ -24,7 +24,7 @@ def call(){
         throw e
             }
       }
-      
+    }       
     stage('Build'){
       ciFunc.build(specs, config)
       }
