@@ -26,11 +26,11 @@ def call(){
       }
     }       
     stage('Build'){
-      ciFunc.build(specs, config)
+      ciFunc.build(specs)
       }
       if (specs.unitTest.isUnittestRequired && specs.containsKey("unitTest")){
       stage('UnitTest'){
-        ciFunc.unittest(specs, config)
+        ciFunc.unittest(specs)
       }
    }
       else {
@@ -38,7 +38,7 @@ def call(){
       }
     if (specs.codeCoverage.isCodecoverageRequired && specs.containsKey("codeCoverage")){  
     stage('CodeCoverage'){
-      ciFunc.codecoverage(specs, config)
+      ciFunc.codecoverage(specs)
       }
     } 
     else {
@@ -47,7 +47,7 @@ def call(){
       
     if (specs.codeQuality.isCodeQualityRequired && specs.containsKey("codeQuality")){  
     stage('CodeQuality'){
-      ciFunc.codequality(specs, config)
+      ciFunc.codequality(specs)
       }
     } 
     else {
@@ -55,11 +55,11 @@ def call(){
       }
       
     stage('upload artifact') {
-      ciFunc.artifactupload(specs, config)
+      ciFunc.artifactupload(specs)
       }
     if (specs.dockerBuild.isDockerBuildRequired && specs.containsKey("dockerBuild")){  
     stage('DockerBuild'){
-      ciFunc.dockerbuild(specs, config)
+      ciFunc.dockerbuild(specs)
       }
     } 
     else {
@@ -67,7 +67,7 @@ def call(){
       }
     if (specs.dockerDeploy.isDockerDeployRequired && specs.containsKey("dockerDeploy")){  
     stage('DockerDeploy'){
-      cdFunc.dockerDeploy(specs, config)
+      cdFunc.dockerDeploy(specs)
       }
     } 
     else {
