@@ -33,50 +33,53 @@ def call(){
     stage('Build'){
       ciFunc.build(specs, config)
       }
-      if (specs.unitTest.isUnittestRequired && specs.containsKey("unitTest")){
+    
+    if (specs.unitTest.isUnittestRequired){
       stage('UnitTest'){
         ciFunc.unittest(specs, config)
       }
-   }
-      else {
-      println "Skipping unit test stage because unit Test templates are missing or Unit Test stage is disabled."
+    }
+    else {
+      println "Unit Test stage is disabled."
       }
-    if (specs.codeCoverage.isCodecoverageRequired && specs.containsKey("codeCoverage")){  
+
+    if (specs.codeCoverage.isCodecoverageRequired){  
     stage('CodeCoverage'){
       ciFunc.codecoverage(specs, config)
       }
     } 
     else {
-    println "Skipping code coverage stage because code coverage templates are missing or code coverage stage is disabled." 
-      }
+    println "code coverage stage is disabled." 
+    }
       
-    if (specs.codeQuality.isCodeQualityRequired && specs.containsKey("codeQuality")){  
+    if (specs.codeQuality.isCodeQualityRequired){  
     stage('CodeQuality'){
       ciFunc.codequality(specs, config)
       }
     } 
     else {
-    println "Skipping code quality stage because code quality templates are missing or code quality stage is disabled." 
+    println "code quality stage is disabled." 
       }
       
     stage('upload artifact') {
       ciFunc.artifactupload(specs, config)
       }
-    if (specs.dockerBuild.isDockerBuildRequired && specs.containsKey("dockerBuild")){  
+
+    if (specs.dockerBuild.isDockerBuildRequired){  
     stage('DockerBuild'){
       ciFunc.dockerbuild(specs, config)
       }
     } 
     else {
-    println "Skipping docker build stage because docker build templates are missing or docker build stage is disabled." 
+    println "docker build stage is disabled." 
       }
-    if (specs.dockerDeploy.isDockerDeployRequired && specs.containsKey("dockerDeploy")){  
+    if (specs.dockerDeploy.isDockerDeployRequired){  
     stage('DockerDeploy'){
       cdFunc.dockerDeploy(specs, config)
       }
     } 
     else {
-    println "Skipping docker deploy stage because docker deploy templates are missing or docker deploy stage is disabled." 
+    println "docker deploy stage is disabled." 
       }
     }
     catch(Exception e) {
