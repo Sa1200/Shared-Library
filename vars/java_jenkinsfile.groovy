@@ -19,7 +19,6 @@ def call(){
              config = readYaml text: specsDir + "/stagingcommands.yml"
              println "reading specs file" + specs
             }
-          }
         }
         catch(Exception e) {
              println "Error in reading specs file : " + e.getMessage()
