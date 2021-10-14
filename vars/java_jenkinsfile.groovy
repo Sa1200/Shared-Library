@@ -14,13 +14,13 @@ def call(){
           def specsDir = "./specs/$Version"
           println "specs version" + specsDir
             if(fileExists(specsDir + "/commonspecs.yml")){
-             commonspecs_template = readYaml file : specsDir + "/commonspecs.yml"
+             commonspecs_template = readYaml file : specsDir + "/commonspecs.yaml"
              specs = specs + commonspecs_template
-             config = readYaml text: specsDir + "/stagingcommands.yml"
+        
              println "reading specs file" + specs
 
       
-            config_template = readYaml file : specsDir + "/commonspecs.yml"
+            config_template = readYaml file : specsDir + "/commonspecs.yaml"
             config = config_template
 
             }
